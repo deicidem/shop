@@ -1,4 +1,6 @@
 <script setup lang="ts">
+console.log('catalog');
+
 const goods = [
     { id: 1, title: 'iPhone 16', price: 123 },
     { id: 2, title: 'iPhone 15', price: 100 },

@@ -1,5 +1,5 @@
 <template>
-    <VCard>
+    <VCard class="card">
         <template #title>
             {{ good.title }}
         </template>
@@ -7,7 +7,7 @@
             {{ good.price }}
         </template>
         <template #actions>
-            <VBtn color="primary">
+            <VBtn color="primary" :to="{ path: `/catalog/${good.id}` }">
                 Купить
             </VBtn>
         </template>
@@ -25,5 +25,4 @@ defineProps<{
 </script>
 
 <style>
-
 </style>

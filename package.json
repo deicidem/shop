@@ -8,7 +8,11 @@
     ],
     "scripts": {
         "root:dev": "npm run dev -w root",
-        "lint": "npm run dev -w root"
+        "root:build": "npm run build -w root",
+        "catalog:dev": "npm run dev -w catalog",
+        "catalog:build": "npm run build -w catalog",
+        "lint": "npm run dev -w root",
+        "types": "tsc --build"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^4.2.0",

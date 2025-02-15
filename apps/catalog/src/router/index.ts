@@ -1,11 +1,20 @@
-import { setupLayouts } from 'virtual:generated-layouts';
-// Composables
+import Index from '@/pages/catalog/index.vue';
 import { createRouter, createWebHistory } from 'vue-router/auto';
-import { routes } from 'vue-router/auto-routes';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: setupLayouts(routes),
+    routes: [
+        {
+            path: '/',
+            children: [
+                {
+                    path: '',
+                    name: 'catalog',
+                    component: Index,
+                },
+            ],
+        },
+    ],
 });
 
 // Workaround for https://github.com/vitejs/vite/issues/11804

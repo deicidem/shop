@@ -1,19 +1,32 @@
 import { fileURLToPath, URL } from 'node:url';
+import { federation } from '@module-federation/vite';
 import Vue from '@vitejs/plugin-vue';
 // Plugins
 import AutoImport from 'unplugin-auto-import/vite';
 import Fonts from 'unplugin-fonts/vite';
 import Components from 'unplugin-vue-components/vite';
 import VueRouter from 'unplugin-vue-router/vite';
+
 // Utilities
 import { defineConfig } from 'vite';
-
 import Layouts from 'vite-plugin-vue-layouts';
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: 'http://localhost:4174/',
     plugins: [
+        federation({
+            name: 'remote',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './routes': './src/mf/exposes/routes',
+            },
+            manifest: true,
+            dev: true,
+            dts: true,
+            shared: ['vue', 'vuetify'],
+        }),
         VueRouter({
             dts: 'src/typed-router.d.ts',
         }),
@@ -54,7 +67,19 @@ export default defineConfig({
         }),
     ],
     define: { 'process.env': {} },
+    build: {
+        target: 'esnext',
+
+        rollupOptions: {
+            output: {
+                globals: {
+                    vue: 'Vue',
+                },
+            },
+        },
+    },
     resolve: {
+        dedupe: ['vue', 'vuetify'],
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
@@ -69,7 +94,7 @@ export default defineConfig({
         ],
     },
     server: {
-        port: 3000,
+        port: 3001,
     },
     css: {
         preprocessorOptions: {
