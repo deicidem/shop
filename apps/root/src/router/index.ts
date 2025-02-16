@@ -1,15 +1,12 @@
-import { catalogRouteWrapper } from '@/mf/loaders/catalog';
-import { addMFRoutes } from '@/mf/loaders/router';
 import { setupLayouts } from 'virtual:generated-layouts';
 // Composables
-import { createRouter, createWebHistory, RouterView } from 'vue-router/auto';
+import { createRouter, createWebHistory } from 'vue-router/auto';
 import { routes } from 'vue-router/auto-routes';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         ...setupLayouts(routes),
-        ...setupLayouts([catalogRouteWrapper]),
     ],
 });
 
@@ -31,7 +28,7 @@ router.onError((err, to) => {
 });
 
 router.isReady().then(() => {
-    addMFRoutes(router);
+    // addMFRoutes(router);
     localStorage.removeItem('vuetify:dynamic-reload');
 });
 

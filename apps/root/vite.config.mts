@@ -62,6 +62,7 @@ export default defineConfig({
             },
         }),
     ],
+
     build: {
         target: 'esnext',
         rollupOptions: {
@@ -90,6 +91,15 @@ export default defineConfig({
     },
     server: {
         port: 3000,
+        proxy: {
+            // Все запросы к /api будут проксироваться на бекенд
+            '/api': {
+                target: 'http://localhost:5104', // URL бэкенда
+                changeOrigin: true, // Изменить источник запроса, если необходимо
+                secure: false, // Если используется HTTP, а не HTTPS
+                rewrite: path => path.replace(/^\/api/, ''), // Убираем /api из пути
+            },
+        },
     },
     css: {
         preprocessorOptions: {

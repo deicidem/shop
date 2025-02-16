@@ -4,11 +4,23 @@
 
 <template>
     <VLayout>
-        <v-app-bar title="Simple shop" />
-        <v-main>
-            <v-container>
+        <VAppBar>
+            <template #title>
+                <VBtn to="/">
+                    Home
+                </VBtn>
+            </template>
+            <VBtn to="/auth/login">
+                Login
+            </VBtn>
+            <VBtn to="/auth/register">
+                Register
+            </VBtn>
+        </VAppBar>
+        <VMain>
+            <VContainer>
                 <RouterView />
-            </v-container>
-        </v-main>
+            </VContainer>
+        </VMain>
     </VLayout>
 </template>
