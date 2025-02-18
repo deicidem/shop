@@ -27,9 +27,27 @@ async function login(request: LoginRequest) {
     }
 }
 
+async function logout() {
+    await ax.post('/logout');
+    localStorage.removeItem('token');
+}
+
+async function checkAuth() {
+    try {
+        const res = await ax.get('/auth');
+        return res.data;
+    }
+    catch (error) {
+        console.error('Check auth failed:', error);
+        throw error;
+    }
+}
+
 const AuthService = {
+    checkAuth,
     register,
     login,
+    logout,
 };
 
 export default AuthService;

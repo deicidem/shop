@@ -21,7 +21,8 @@ declare module 'vue-router/auto-routes' {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/auth/login/': RouteRecordInfo<'/auth/login/', '/auth/login', Record<never, never>, Record<never, never>>,
     '/auth/register/': RouteRecordInfo<'/auth/register/', '/auth/register', Record<never, never>, Record<never, never>>,
-    '/catalog/': RouteRecordInfo<'/catalog/', '/catalog', Record<never, never>, Record<never, never>>,
+    '/cart/': RouteRecordInfo<'/cart/', '/cart', Record<never, never>, Record<never, never>>,
+    'name-override': RouteRecordInfo<'name-override', '/catalog', Record<never, never>, Record<never, never>>,
     '/catalog/[id]': RouteRecordInfo<'/catalog/[id]', '/catalog/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
   }
 }

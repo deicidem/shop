@@ -6,8 +6,7 @@
     <VCard
         class="pa-6 mx-auto mt-16 rounded-lg"
         variant="flat"
-        max-width="600"
     >
-        <LoginForm />
+        <CartForm />
     </VCard>
 </template>

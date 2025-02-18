@@ -1,21 +1,21 @@
 <template>
-    <VCard class="card">
+    <VCard class="card" variant="flat">
         <template #title>
-            {{ good.name }}
+            {{ product.name }}
         </template>
         <template #subtitle>
-            Осталось: {{ good.stock }}
+            Осталось: {{ product.stock }}
         </template>
         <template #text>
-            {{ good.description }}
+            {{ product.description }}
         </template>
         <template #actions>
             <div class="d-flex justify-space-between w-100">
-                <VBtn :to="{ path: `/catalog/${good.id}` }">
+                <VBtn color="primary" :to="{ path: `/catalog/${product.id}` }">
                     Подробнее
                 </VBtn>
-                <VBtn variant="elevated" color="primary" :to="{ path: `/catalog/${good.id}` }">
-                    Купить
+                <VBtn variant="flat" color="primary" @click="emit('add', product.id)">
+                    В корзину
                 </VBtn>
             </div>
         </template>
@@ -26,7 +26,11 @@
 import type { Product } from '@/api/products';
 
 defineProps<{
-    good: Product;
+    product: Product;
+}>();
+
+const emit = defineEmits<{
+    add: [id: number];
 }>();
 </script>
 

@@ -2,6 +2,12 @@
 import type { Product } from '@/api/products';
 import ProductsService from '@/api/products';
 
+definePage({
+    meta: {
+        requiresAuth: true,
+    },
+});
+
 const route = useRoute('/catalog/[id]');
 
 const productId = computed(() => +route.params.id);
@@ -18,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <ProductCard v-if="product" :good="product" />
+    <ProductCard v-if="product" :product="product" />
     <div v-else>
         <VProgressCircular indeterminate width="2" size="24" />
     </div>
