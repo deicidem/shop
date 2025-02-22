@@ -8,6 +8,8 @@ export interface CartItem {
     amount: number;
 }
 
+
+
 export const useCartStore = defineStore('cart', () => {
     const cart = ref<CartItem[]>([]);
 
@@ -19,11 +21,10 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     function decrementCartAmount(item: CartItem) {
-        item.amount -= 1;
+        if (item.amount <= 1)
+            return;
 
-        if (item.amount === 0) {
-            cart.value.splice(cart.value.indexOf(item), 1);
-        }
+        item.amount -= 1;
     }
 
     function addProductToCart(item: Product) {
@@ -47,12 +48,7 @@ export const useCartStore = defineStore('cart', () => {
         if (!existedItem) {
             return;
         }
-
-        existedItem.amount -= 1;
-
-        if (existedItem.amount === 0) {
-            cart.value.splice(cart.value.indexOf(existedItem), 1);
-        }
+        cart.value.splice(cart.value.indexOf(existedItem), 1);
     }
 
     return {

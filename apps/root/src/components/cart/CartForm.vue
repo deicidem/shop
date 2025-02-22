@@ -1,9 +1,23 @@
 <script setup lang="ts">
+import type { CreateOrderRequest } from '@/api/orders';
+import OrdersService from '@/api/orders';
 import { useCartStore } from '@/stores/cart';
 import { storeToRefs } from 'pinia';
 
-const { incrementCartAmount, decrementCartAmount } = useCartStore();
+const { incrementCartAmount, decrementCartAmount, removeProductFromCart } = useCartStore();
 const { cart, cartTotal } = storeToRefs(useCartStore());
+
+async function createOrder() {
+    const request: CreateOrderRequest = {
+        items: cart.value.map(i => ({
+            productId: i.id,
+            quantity: i.amount,
+        })),
+    };
+
+    const resp = await OrdersService.createOrder(request);
+    console.log(resp);
+}
 </script>
 
 <template>
@@ -18,7 +32,17 @@ const { cart, cartTotal } = storeToRefs(useCartStore());
                 :item="item"
                 @add="incrementCartAmount(item)"
                 @remove="decrementCartAmount(item)"
+                @delete="removeProductFromCart(item)"
             />
         </div>
+
+        <VBtn
+            class="mt-4"
+            color="success"
+            variant="flat"
+            @click="createOrder"
+        >
+            Оформить заказ
+        </VBtn>
     </VForm>
 </template>

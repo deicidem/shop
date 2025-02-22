@@ -35,12 +35,7 @@ router.beforeEach((to, from, next) => {
         next('/auth/login');
         return;
     }
-    if (to.name === '/auth/login/' || to.name === '/auth/register/') {
-        if (localStorage.getItem('token')) {
-            next('/');
-            return;
-        }
-    }
+
     next();
 });
 
